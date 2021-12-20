@@ -32,3 +32,28 @@ exports.postNote = async(req, res) => {
         console.log(err)
     }
 }
+
+//Update operation
+exports.updateNote = async(req, res) => {
+    try {
+        const notes = await note.findOneAndUpdate({ id: req.params.id }, {
+            note: req.body.note
+        }, {
+            new: true,
+            runValidators: true
+        })
+        res.send(notes)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+//Delete operation
+exports.deleteNote = async(req, res) => {
+    try {
+        const notes = await note.deleteOne({ id: req.params.id })
+        res.send(notes)
+    } catch (err) {
+        console.log(err)
+    }
+}
